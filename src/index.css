@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Themes */
+[data-theme='dark'] {
+    --bg-color: #252525;
+    --text-color: #ffffff;
+    --switcher-color: #d9d9d9;
+    --switch-transform: 0;
+    --placeholder-color: #99A1AF;
+}
+[data-theme='light'] {
+    --bg-color: #e1e1e1;
+    --text-color: #000000;
+    --switcher-color: #514c4c;
+    --switch-transform: 20px;
+    --color: oklab(52.772% -0.03866 -0.11075);
+    --placeholder-color: #4c4c4c;
+}
+
+/* Global Styles */
+main {
+    background-color: var(--bg-color);
+}
+.heading, .save-btn, .title, .content {
+    color: var(--text-color);
+}
+.theme-switcher {
+    background-color: var(--switcher-color);
+}
+.theme-switcher span {
+    left: var(--switch-transform);
+}
+.title::placeholder, .content::placeholder, .date, .start-msg {
+    color: var(--placeholder-color);
+}
+
+button {
+    cursor: pointer;
+}
+
+
+
