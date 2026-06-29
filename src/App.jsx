@@ -6,7 +6,7 @@ import ThemeProvider from "./contexts/ThemeProvider";
 function App() {
   return (
     <ThemeProvider>
-      <main className="px-16 w-full mx-auto duration-500">
+      <main className="px-16 w-full mx-auto duration-200">
         <Router>
           <Routes>
             <Route path="/" element={<Overview />}></Route>
@@ -16,7 +16,6 @@ function App() {
         </Router>
       </main>
     </ThemeProvider>
-    
   )
 }
 
