@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const initialState = {
     title: '',
-    content: ''
+    content: '',
+    tag: 'Untagged',
 }
 
 function formReducer(state, action) {
@@ -22,6 +23,8 @@ function formReducer(state, action) {
     }
 }
 
+const tags = ['Untagged', 'Personal', 'Work', 'Health'];
+
 export default function AddNotes() {
     const reduxDispatch = useDispatch();
     const navigate = useNavigate();
@@ -33,7 +36,8 @@ export default function AddNotes() {
 
     const [state, formDispatch] = useReducer(formReducer, {
         title: existingNote ? existingNote.title : '',
-        content: existingNote ? existingNote.content : ''
+        content: existingNote ? existingNote.content : '',
+        tag: existingNote ? (existingNote.tag || 'Untagged') : 'Untagged',
     });
 
     const handleChange = (e) => {
@@ -41,6 +45,14 @@ export default function AddNotes() {
             type: 'UPDATE_FIELD',
             field: e.target.name,
             value: e.target.value
+        })
+    }
+
+    const selectTag = (selectedTag) => {
+        formDispatch({
+            type: 'UPDATE_FIELD',
+            field: 'tag',
+            value: selectedTag
         })
     }
 
@@ -54,10 +66,11 @@ export default function AddNotes() {
                     date: new Date().toLocaleDateString('en-GB', { 
                         day: 'numeric', month: 'short', year: 'numeric',
                         hour: '2-digit', minute: '2-digit', hour12: true 
-                    })
+                    }),
+                    tag: state.tag
                 }));
             } else {
-                reduxDispatch(addNote(state.title, state.content));
+                reduxDispatch(addNote(state.title, state.content, state.tag));
             }
             navigate('/');
         } else {
@@ -65,11 +78,15 @@ export default function AddNotes() {
         }
     }
 
+
     return (
-        <div className='relative min-h-screen max-w-7xl w-full mx-auto py-4'>
-            <header className="flex mb-8">
+        <div className='flex flex-col min-h-screen max-w-7xl mx-auto w-full py-4'>
+            <header className="flex w-full justify-between mb-8">
                 <button onClick={handleSave} className="text-2xl save-btn">
                     <i className="fa-solid fa-angle-left"></i>
+                </button>
+                <button onClick={handleSave} className="text-2xl py-2 px-4 bg-blue-400 rounded-md">
+                    <i className="fa-solid fa-floppy-disk"></i>
                 </button>
             </header>
 
@@ -82,7 +99,7 @@ export default function AddNotes() {
                     value={state.title}
                     onChange={handleChange}
                     className="w-full text-4xl font-bold outline-none 
-                    bg-transparent title"
+                    bg-transparent title border-b-2 border-blue-400 focus:border-blue-600"
                 />
                 
                 {/* Date */}
@@ -95,6 +112,21 @@ export default function AddNotes() {
                         minute: '2-digit', 
                         hour12: true })}
                 </p>
+
+                {/* Tags */}
+                
+                {tags.map((tag, index) => {
+                    return(
+                        <button key={index} onClick={() => selectTag(tag)} 
+                        className={`py-1 px-2 mr-4 rounded-2xl border border-blue-400
+                            ${state.tag === tag ? 
+                            `bg-blue-400 text-white` : 
+                            `bg-transparent text-blue-400`
+                        }`}>
+                            {tag}
+                        </button>
+                    );
+                })}
                 
                 {/* Content */}
                 <textarea

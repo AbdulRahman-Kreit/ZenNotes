@@ -2,23 +2,24 @@
 
 /* Themes */
 [data-theme='dark'] {
-    --bg-color: #252525;
+    --bg-color: #09090b;
     --text-color: #ffffff;
     --switcher-color: #d9d9d9;
-    --switch-transform: 0;
+    --switch-transform: 20px;
+    --accent-color: #60A5FA;
     --placeholder-color: #99A1AF;
 }
 [data-theme='light'] {
-    --bg-color: #e1e1e1;
+    --bg-color: #d4d4d8;
     --text-color: #000000;
     --switcher-color: #514c4c;
-    --switch-transform: 20px;
-    --color: oklab(52.772% -0.03866 -0.11075);
+    --switch-transform: 0;
+    --accent-color: #2563EB;
     --placeholder-color: #4c4c4c;
 }
 
 /* Global Styles */
-main {
+main, aside {
     background-color: var(--bg-color);
 }
 .heading, .save-btn, .title, .content {
@@ -33,9 +34,16 @@ main {
 .title::placeholder, .content::placeholder, .date, .start-msg {
     color: var(--placeholder-color);
 }
+.card {
+    background-color: var(--accent-color);
+}
 
 button {
     cursor: pointer;
+}
+
+a.active {
+    background-color: #364153;
 }
 
 

@@ -12,7 +12,7 @@ const notesSlice = createSlice({
             reducer(state, action) {
                 state.items.push(action.payload);
             },
-            prepare(title, content) {
+            prepare(title, content, tag) {
                 return {
                     payload: {
                         id: nanoid(),
@@ -27,6 +27,7 @@ const notesSlice = createSlice({
                             hour12: true
                         }),
                         timestamp: new Date().toISOString(),
+                        tag,
                     }
                 }
             }
@@ -50,6 +51,8 @@ const notesSlice = createSlice({
                     state.items.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                 } else if (type === 'Oldest') {
                     state.items.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+                } else if (type === 'Alphabetically') {
+                    state.items.sort((a, b) => a.title.localeCompare(b.title, 'en'));
                 }
             }
         },
@@ -63,6 +66,8 @@ const notesSlice = createSlice({
                 state.items.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
             } else if (type === 'Oldest') {
                 state.items.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            } else if (type === 'Alphabetically') {
+                state.items.sort((a, b) => a.title.localeCompare(b.title, 'en'));
             }
         }
     }

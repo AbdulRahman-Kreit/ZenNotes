@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { deleteNote } from '../features/notes/notesSlice';
 import { useNavigate } from 'react-router-dom';
 
-const NoteCard = memo(({ id, title, content, date }) => {
+const NoteCard = memo(({ id, title, content, date, tag }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -22,10 +22,11 @@ const NoteCard = memo(({ id, title, content, date }) => {
     const buttonStyleClass = 'w-12 h-12 mx-2 transition-colors duration-300 rounded-full text-white text-md text-center'
 
     return (
-        <div className="bg-[#5da3fa] p-5 rounded-3xl shadow-sm flex flex-col 
+        <div className="card p-5 rounded-3xl shadow-sm flex flex-col 
         justify-between h-48 text-white group relative overflow-hidden">
             <div>
                 <h3 className="text-xl md:text-2xl font-bold mb-2 line-clamp-1">{title}</h3>
+                <p className="text-sm md:text-md font-semibold">{tag}</p>
                 <p className="text-md md:text-lg opacity-90 line-clamp-2">{content}</p>
             </div>
             <p className="text-xs md:text-sm mt-4 opacity-80">{date}</p>

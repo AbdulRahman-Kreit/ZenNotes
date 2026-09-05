@@ -1,14 +1,11 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { ThemeContext } from '../contexts/ThemeProvider'
 
-export default function Heading() {
+export default function Customizations() {
     const { toggleTheme } = useContext(ThemeContext);
 
     return (
         <div className='heading flex flex-row justify-between items-center py-5'>
-            <h1 className='text-xl md:text-4xl font-bold'>
-                ZenNotes
-            </h1>
             <div className='flex items-center'>
                 <span className='textmd md:text-xl font-semibold'>
                     Dark Mode

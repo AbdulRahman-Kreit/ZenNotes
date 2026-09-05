@@ -1,20 +1,34 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Overview from './components/Overview';
+
+import AllNotes from './components/AllNotes';
+import Favorites from "./components/Favorites";
+import Customizations from "./components/Customizations"
 import AddNotes from './components/AddNotes';
+
+import MainLayout from "./layouts/MainLayout";
+import MinimalLayout from "./layouts/MinimalLayout";
+
 import ThemeProvider from "./contexts/ThemeProvider";
 
 function App() {
   return (
     <ThemeProvider>
-      <main className="px-16 w-full mx-auto duration-200">
         <Router>
+
           <Routes>
-            <Route path="/" element={<Overview />}></Route>
-            <Route path="/add" element={<AddNotes />}></Route>
-            <Route path="/edit/:id" element={<AddNotes />} />
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<AllNotes />}></Route>
+              <Route path="/favorites" element={<Favorites />}></Route>
+              <Route path="/customizations" element={<Customizations />}></Route>
+            </Route>
+
+            <Route element={<MinimalLayout />}>
+              <Route path="/add" element={<AddNotes />}></Route>
+              <Route path="/edit/:id" element={<AddNotes />} />
+            </Route>
           </Routes>
+          
         </Router>
-      </main>
     </ThemeProvider>
   )
 }

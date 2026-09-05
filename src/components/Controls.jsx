@@ -37,8 +37,8 @@ export default function Controls() {
         <div className='flex justify-between items-center py-12 relative'>
             {/* Search Section */}
             <div className="flex items-center">
-                <label htmlFor="search-bar" className='mr-4 text-2xl text-blue-600
-                hidden md:inline-flex'>
+                <label htmlFor="search-bar" className='absolute left-3 top-1/2 -translate-y-1/2 
+                text-2xl text-blue-400 focus:text-blue-600 inline-flex'>
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </label>
                 <input 
@@ -46,7 +46,9 @@ export default function Controls() {
                     id="search-bar"
                     value={searchQuery}
                     onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-                    className='h-10 w-11/12 md:w-80 bg-white border-2 border-blue-400 focus:border-blue-600 outline-none rounded-xl px-4 transition-all' 
+                    className='relative h-10 w-11/12 md:w-80 bg-transparent border-2 
+                    border-blue-400 focus:border-blue-600 outline-none 
+                    rounded-xl pl-12 px-4 transition-all' 
                     placeholder='Enter Note Name'
                 />
             </div>
@@ -74,6 +76,15 @@ export default function Controls() {
                         >
                             <i className={`fa-solid fa-clock mr-2 ${sortBy === 'Newest' ? 'text-white' : 'opacity-50'}`}></i>
                             Newest First
+                        </button>
+
+                        <button 
+                            onClick={() => handleSort('Alphabetically')} 
+                            className={`w-full text-left px-4 py-3 transition-colors
+                            ${sortBy === 'Alphabetically' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-gray-700'}`}
+                        >
+                            <i className={`fa-solid fa-arrow-down-a-z mr-2 ${sortBy === 'Alphabetically' ? 'text-white' : 'opacity-50'}`}></i>
+                            Alphabetically
                         </button>
                     </div>
                 )}
