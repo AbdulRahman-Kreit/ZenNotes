@@ -27,7 +27,7 @@ const notesSlice = createSlice({
                             hour12: true
                         }),
                         timestamp: new Date().toISOString(),
-                        tag,
+                        tag: tag || 'Untagged',
                     }
                 }
             }
@@ -36,15 +36,15 @@ const notesSlice = createSlice({
             state.items = state.items.filter(note => note.id !== action.payload);
         },
         editNote: (state, action) => {
-            const { id, title, content, date } = action.payload;
+            const { id, title, content, date, tag } = action.payload;
             const existingNote = state.items.find(note => note.id === id);
             
             if (existingNote) {
                 existingNote.title = title;
                 existingNote.content = content;
                 existingNote.date = date;
-                
                 existingNote.timestamp = new Date().toISOString();
+                existingNote.tag = tag;
 
                 const type = state.sortBy;
                 if (type === 'Newest') {
