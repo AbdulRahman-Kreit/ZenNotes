@@ -12,7 +12,7 @@ const notesSlice = createSlice({
             reducer(state, action) {
                 state.items.push(action.payload);
             },
-            prepare(title, content, tag) {
+            prepare(title, content, tag, isFavorite) {
                 return {
                     payload: {
                         id: nanoid(),
@@ -28,6 +28,7 @@ const notesSlice = createSlice({
                         }),
                         timestamp: new Date().toISOString(),
                         tag: tag || 'Untagged',
+                        isFavorite: isFavorite || false,
                     }
                 }
             }
@@ -36,7 +37,7 @@ const notesSlice = createSlice({
             state.items = state.items.filter(note => note.id !== action.payload);
         },
         editNote: (state, action) => {
-            const { id, title, content, date, tag } = action.payload;
+            const { id, title, content, date, tag, isFavorite } = action.payload;
             const existingNote = state.items.find(note => note.id === id);
             
             if (existingNote) {
@@ -45,6 +46,10 @@ const notesSlice = createSlice({
                 existingNote.date = date;
                 existingNote.timestamp = new Date().toISOString();
                 existingNote.tag = tag;
+
+                if (typeof isFavorite !== "undefined") {
+                    existingNote.isFavorite = isFavorite;
+                }
 
                 const type = state.sortBy;
                 if (type === 'Newest') {
@@ -56,6 +61,15 @@ const notesSlice = createSlice({
                 }
             }
         },
+
+        toggleFavorite: (state, action) => {
+            const id = action.payload;
+            const existingNote = state.items.find(note => note.id === id);
+            if (existingNote) {
+                existingNote.isFavorite = !existingNote.isFavorite;
+            }
+        },
+
         setSearchQuery: (state, action) => {
             state.searchQuery = action.payload;
         },
@@ -73,5 +87,5 @@ const notesSlice = createSlice({
     }
 });
 
-export const { addNote, deleteNote, editNote, sortNotes, setSearchQuery } = notesSlice.actions;
+export const { addNote, deleteNote, editNote, toggleFavorite, sortNotes, setSearchQuery } = notesSlice.actions;
 export default notesSlice.reducer;

@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteNote } from '../features/notes/notesSlice';
+import { deleteNote, toggleFavorite } from '../features/notes/notesSlice';
 import { useNavigate } from 'react-router-dom';
 
-const NoteCard = memo(({ id, title, content, date, tag }) => {
+const NoteCard = memo(({ id, title, content, date, tag, isFavorite }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -18,6 +18,11 @@ const NoteCard = memo(({ id, title, content, date, tag }) => {
         e.stopPropagation();
         navigate(`/edit/${id}`);
     };
+
+    const toggleFav = (e) => {
+        e.stopPropagation();
+        dispatch(toggleFavorite(id))
+    }
 
     const buttonStyleClass = 'w-12 h-12 mx-2 transition-colors duration-300 rounded-full text-white text-md text-center'
 
@@ -43,6 +48,17 @@ const NoteCard = memo(({ id, title, content, date, tag }) => {
                     title="Edit Note"
                 >
                     <i className="fa-solid fa-pen-to-square"></i>
+                </button>
+                {/* Favorite Button */}
+                <button 
+                    onClick={toggleFav}
+                    className={`${buttonStyleClass} bg-white/20 
+                    hover:bg-white/40`}
+                    title={isFavorite ? "Remove from Favorite" : "Add to Favorite"}
+                >
+                    {isFavorite ? 
+                    <i className="fa-solid fa-heart"></i> : 
+                    <i className="fa-regular fa-heart"></i>}
                 </button>
                 {/* Delete Button */}
                 <button 

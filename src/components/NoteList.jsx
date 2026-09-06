@@ -39,6 +39,7 @@ export default function NoteList() {
                             content={note.content} 
                             date={note.date} 
                             tag={note.tag || 'Untagged'}
+                            isFavorite={note.isFavorite}
                         />
                     ))}
                 </div>
