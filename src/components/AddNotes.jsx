@@ -94,45 +94,48 @@ export default function AddNotes() {
                     <i className="fa-solid fa-angle-left"></i>
                 </button>
 
-                <button onClick={handleSave} className="text-2xl py-2 px-4 bg-blue-500 text-white hover:bg-blue-600 rounded-md transition-colors">
+                <button onClick={handleSave} className="text-2xl py-2 px-4 accent-bg text-white rounded-md transition-colors">
                     <i className="fa-solid fa-floppy-disk"></i>
                 </button>
             </header>
 
             {/* Popup Backdrop & Modal */}
             {isPopupOpen && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-zinc-800 rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-gray-100 dark:border-zinc-700 transform transition-all flex flex-col items-center text-center space-y-6">
+                <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="bg-(--bg-color) border border-(--border-color) rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl transform transition-all flex flex-col items-center text-center space-y-6">
                         
-                        <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center text-xl">
+                        {/* Dynamic Icon Badge */}
+                        <div className="w-14 h-14 rounded-full accent-bg text-white flex items-center justify-center text-2xl shadow-md">
                             <i className="fa-solid fa-circle-question"></i>
                         </div>
 
+                        {/* Title & Description */}
                         <div>
-                            <h3 className="text-xl font-bold text-gray-800 dark:text-white">Save Changes?</h3>
-                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            <h3 className="text-xl font-bold heading">Save Changes?</h3>
+                            <p className="text-sm date mt-2">
                                 Do you want to save your progress before leaving?
                             </p>
                         </div>
 
+                        {/* Action Buttons */}
                         <div className="flex flex-col sm:flex-row gap-3 w-full">
                             <button 
                                 onClick={handleSave}
-                                className="flex-1 py-2.5 px-4 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-xl shadow-md transition-all active:scale-95"
+                                className="flex-1 py-2.5 px-4 accent-bg text-white font-medium rounded-xl shadow-md transition-all active:scale-95"
                             >
                                 Save & Leave
                             </button>
 
                             <button 
                                 onClick={() => navigate('/')}
-                                className="flex-1 py-2.5 px-4 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-xl border border-red-200 transition-all active:scale-95"
+                                className="flex-1 py-2.5 px-4 bg-red-500/10 hover:bg-red-500/20 text-red-500 font-medium rounded-xl border border-red-500/30 transition-all active:scale-95"
                             >
                                 Discard
                             </button>
 
                             <button 
                                 onClick={handleClosePopup}
-                                className="flex-1 py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-zinc-700 dark:text-gray-200 font-medium rounded-xl transition-all active:scale-95"
+                                className="flex-1 py-2.5 px-4 bg-zinc-700 hover:bg-zinc-600 text-white font-medium rounded-xl border border-zinc-600 transition-all active:scale-95"
                             >
                                 Cancel
                             </button>
@@ -150,7 +153,7 @@ export default function AddNotes() {
                     value={state.title}
                     onChange={handleChange}
                     className="w-full text-4xl font-bold outline-none 
-                    bg-transparent title border-b-2 border-blue-400 focus:border-blue-600"
+                    bg-transparent title border-b-2 accent-border"
                 />
                 
                 {/* Date Display */}
@@ -170,10 +173,10 @@ export default function AddNotes() {
                         <button 
                             key={index} 
                             onClick={() => selectTag(tag)} 
-                            className={`py-1 px-3 rounded-2xl border border-blue-400 transition-colors
+                            className={`py-1 px-3 rounded-2xl border accent-border transition-colors
                                 ${state.tag === tag ? 
-                                `bg-blue-400 text-white` : 
-                                `bg-transparent text-blue-400`
+                                `accent-bg text-white` : 
+                                `bg-transparent accent-text`
                             }`}
                         >
                             {tag}

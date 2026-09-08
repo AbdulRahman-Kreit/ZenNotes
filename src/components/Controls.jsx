@@ -48,11 +48,11 @@ export default function Controls() {
     }
     
     return (
-        <div className='flex justify-between items-center py-12 relative gap-4'>
+        <div className='flex flex-col sm:flex-row justify-between items-stretch sm:items-center py-6 md:py-10 relative gap-4'>
             {/* Search Section */}
-            <div className="flex items-center relative">
+            <div className="flex items-center relative w-full sm:w-auto flex-1 max-w-lg">
                 <label htmlFor="search-bar" className='absolute left-3 top-1/2 -translate-y-1/2 
-                text-2xl text-blue-400 focus:text-blue-600 inline-flex'>
+                text-xl md:text-2xl accent-text inline-flex'>
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </label>
                 <input 
@@ -60,23 +60,22 @@ export default function Controls() {
                     id="search-bar"
                     value={searchQuery}
                     onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-                    className='relative h-10 w-full md:w-80 bg-transparent border-2 
-                    border-blue-400 focus:border-blue-600 outline-none 
-                    rounded-xl pl-12 px-4 transition-all' 
+                    className='relative h-11 w-full bg-transparent border-2 
+                    accent-border accent-focus outline-none 
+                    rounded-xl pl-11 pr-4 transition-all' 
                     placeholder='Enter Note Name'
                 />
             </div>
 
             {/* Buttons Container */}
-            <div className="flex flex-row items-center gap-x-4 w-fit">
+            <div className="flex flex-row items-center justify-end gap-x-2 sm:gap-x-4 w-full sm:w-auto">
                 <button
                     type="button"
                     onClick={() => dispatch(toggleLayout())}
                     title={layout === 'grid' ? 'Switch to List' : 'Switch to Grid'}
-                    className="py-2 px-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors z-10 flex items-center justify-center"
+                    className="py-2.5 px-3.5 accent-bg text-white rounded-xl transition-colors z-10 flex items-center justify-center min-w-[42px]"
                 >
-                    <i className={`fa-solid ${layout === 'grid' ? 'fa-list' : 'fa-grip'} 
-                    text-2xl`}></i>
+                    <i className={`fa-solid ${layout === 'grid' ? 'fa-list' : 'fa-grip'} text-xl`}></i>
                 </button>
 
                 {/* Sort Dropdown Button */}
@@ -84,17 +83,17 @@ export default function Controls() {
                     <button 
                         onClick={toggleSortDropdown} 
                         title='Sort notes'
-                        className="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        className="py-2.5 px-4 accent-bg text-white rounded-xl transition-colors flex items-center justify-center min-w-[42px]"
                     >
-                        <i className="fa-solid fa-arrow-down-wide-short"></i>
+                        <i className="fa-solid fa-arrow-down-wide-short text-xl"></i>
                     </button>
 
                     {isSortDropdownOpen && (
-                        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden">
+                        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl shadow-xl z-50 overflow-hidden">
                             <button 
                                 onClick={() => handleSort('Oldest')} 
-                                className={`w-full text-left px-4 py-3 transition-colors border-b border-gray-100
-                                ${sortBy === 'Oldest' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-gray-700'}`}
+                                className={`w-full text-left text-sm px-4 py-3 transition-colors border-b border-gray-100 dark:border-zinc-700
+                                ${sortBy === 'Oldest' ? 'accent-bg text-white' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200'}`}
                             >
                                 <i className={`fa-solid fa-clock-rotate-left mr-2 ${sortBy === 'Oldest' ? 'text-white' : 'opacity-50'}`}></i>
                                 Oldest First
@@ -102,8 +101,8 @@ export default function Controls() {
 
                             <button 
                                 onClick={() => handleSort('Newest')} 
-                                className={`w-full text-left px-4 py-3 transition-colors
-                                ${sortBy === 'Newest' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-gray-700'}`}
+                                className={`w-full text-left text-sm px-4 py-3 transition-colors border-b border-gray-100 dark:border-zinc-700
+                                ${sortBy === 'Newest' ? 'accent-bg text-white' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200'}`}
                             >
                                 <i className={`fa-solid fa-clock mr-2 ${sortBy === 'Newest' ? 'text-white' : 'opacity-50'}`}></i>
                                 Newest First
@@ -111,8 +110,8 @@ export default function Controls() {
 
                             <button 
                                 onClick={() => handleSort('Alphabetically')} 
-                                className={`w-full text-left px-4 py-3 transition-colors
-                                ${sortBy === 'Alphabetically' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-gray-700'}`}
+                                className={`w-full text-left text-sm px-4 py-3 transition-colors
+                                ${sortBy === 'Alphabetically' ? 'accent-bg text-white' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200'}`}
                             >
                                 <i className={`fa-solid fa-arrow-down-a-z mr-2 ${sortBy === 'Alphabetically' ? 'text-white' : 'opacity-50'}`}></i>
                                 Alphabetically
@@ -126,17 +125,17 @@ export default function Controls() {
                     <button 
                         onClick={toggleFilterDropdown} 
                         title='Filter notes'
-                        className="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        className="py-2.5 px-4 accent-bg text-white rounded-xl transition-colors flex items-center justify-center min-w-[42px]"
                     >
-                        <i className="fa-solid fa-filter"></i>
+                        <i className="fa-solid fa-filter text-xl"></i>
                     </button>
 
                     {isFilterDropdownOpen && (
-                        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden">
+                        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl shadow-xl z-50 overflow-hidden">
                             <button 
                                 onClick={() => handleFilter('All')} 
-                                className={`w-full text-left px-4 py-3 transition-colors border-b border-gray-100
-                                ${filter === 'All' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-gray-700'}`}
+                                className={`w-full text-left text-sm px-4 py-3 transition-colors border-b border-gray-100 dark:border-zinc-700
+                                ${filter === 'All' ? 'accent-bg text-white' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200'}`}
                             >
                                 <i className={`fa-solid fa-note-sticky mr-2 ${filter === 'All' ? 'text-white' : 'opacity-50'}`}></i>
                                 All Notes
@@ -144,8 +143,8 @@ export default function Controls() {
                             
                             <button 
                                 onClick={() => handleFilter('Untagged')} 
-                                className={`w-full text-left px-4 py-3 transition-colors border-b border-gray-100
-                                ${filter === 'Untagged' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-gray-700'}`}
+                                className={`w-full text-left text-sm px-4 py-3 transition-colors border-b border-gray-100 dark:border-zinc-700
+                                ${filter === 'Untagged' ? 'accent-bg text-white' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200'}`}
                             >
                                 <i className={`fa-solid fa-circle-xmark mr-2 ${filter === 'Untagged' ? 'text-white' : 'opacity-50'}`}></i>
                                 Untagged
@@ -153,8 +152,8 @@ export default function Controls() {
 
                             <button 
                                 onClick={() => handleFilter('Personal')} 
-                                className={`w-full text-left px-4 py-3 transition-colors
-                                ${filter === 'Personal' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-gray-700'}`}
+                                className={`w-full text-left text-sm px-4 py-3 transition-colors border-b border-gray-100 dark:border-zinc-700
+                                ${filter === 'Personal' ? 'accent-bg text-white' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200'}`}
                             >
                                 <i className={`fa-solid fa-person mr-2 ${filter === 'Personal' ? 'text-white' : 'opacity-50'}`}></i>
                                 Personal
@@ -162,8 +161,8 @@ export default function Controls() {
 
                             <button 
                                 onClick={() => handleFilter('Health')} 
-                                className={`w-full text-left px-4 py-3 transition-colors
-                                ${filter === 'Health' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-gray-700'}`}
+                                className={`w-full text-left text-sm px-4 py-3 transition-colors border-b border-gray-100 dark:border-zinc-700
+                                ${filter === 'Health' ? 'accent-bg text-white' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200'}`}
                             >
                                 <i className={`fa-solid fa-apple-whole mr-2 ${filter === 'Health' ? 'text-white' : 'opacity-50'}`}></i>
                                 Health
@@ -171,8 +170,8 @@ export default function Controls() {
 
                             <button 
                                 onClick={() => handleFilter('Work')} 
-                                className={`w-full text-left px-4 py-3 transition-colors
-                                ${filter === 'Work' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-gray-700'}`}
+                                className={`w-full text-left text-sm px-4 py-3 transition-colors
+                                ${filter === 'Work' ? 'accent-bg text-white' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200'}`}
                             >
                                 <i className={`fa-solid fa-briefcase mr-2 ${filter === 'Work' ? 'text-white' : 'opacity-50'}`}></i>
                                 Work

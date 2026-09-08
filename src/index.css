@@ -1,30 +1,102 @@
 @import "tailwindcss";
 
-/* Themes */
+/* Base Themes */
 [data-theme='dark'] {
     --bg-color: #09090b;
     --text-color: #ffffff;
+    --user-text-color: #ffffff;
     --switcher-color: #d9d9d9;
     --switch-transform: 20px;
-    --accent-color: #60A5FA;
     --placeholder-color: #99A1AF;
-}
-[data-theme='light'] {
-    --bg-color: #d4d4d8;
-    --text-color: #000000;
-    --switcher-color: #514c4c;
-    --switch-transform: 0;
-    --accent-color: #2563EB;
-    --placeholder-color: #4c4c4c;
+    --border-color: #27272a;
+    --card-bg: #18181b;
+    --nav-hover-bg: rgba(255, 255, 255, 0.08);
 }
 
-/* Global Styles */
+[data-theme='light'] {
+    --bg-color: #f4f4f5;
+    --text-color: #18181b;
+    --user-text-color: #000000;
+    --switcher-color: #514c4c;
+    --switch-transform: 0;
+    --placeholder-color: #71717a;
+    --border-color: #e4e4e7;
+    --card-bg: #ffffff;
+    --nav-hover-bg: rgba(0, 0, 0, 0.05);
+}
+
+/* Font Families */
+:root[data-font='inter'] {
+    --app-font: 'Inter', sans-serif;
+}
+:root[data-font='lora'] {
+    --app-font: 'Lora', serif;
+}
+:root[data-font='mono'] {
+    --app-font: 'JetBrains Mono', monospace;
+}
+
+/* Accent Color Variations */
+:root[data-accent='blue'], [data-theme='light'][data-accent='blue'] { 
+    --accent-color: #2563eb; 
+    --accent-hover: #1d4ed8; 
+}
+[data-theme='dark'][data-accent='blue'] { 
+    --accent-color: #60a5fa; 
+    --accent-hover: #3b82f6; 
+}
+
+:root[data-accent='emerald'], [data-theme='light'][data-accent='emerald'] { 
+    --accent-color: #059669; 
+    --accent-hover: #047857; 
+}
+[data-theme='dark'][data-accent='emerald'] { 
+    --accent-color: #34d399; 
+    --accent-hover: #10b981; 
+}
+
+:root[data-accent='violet'], [data-theme='light'][data-accent='violet'] { 
+    --accent-color: #7c3aed; 
+    --accent-hover: #6d28d9; 
+}
+[data-theme='dark'][data-accent='violet'] { 
+    --accent-color: #a78bfa; 
+    --accent-hover: #8b5cf6; 
+}
+
+:root[data-accent='amber'], [data-theme='light'][data-accent='amber'] { 
+    --accent-color: #d97706; 
+    --accent-hover: #b45309; 
+}
+[data-theme='dark'][data-accent='amber'] { 
+    --accent-color: #fbbf24; 
+    --accent-hover: #f59e0b; 
+}
+
+:root[data-accent='rose'], [data-theme='light'][data-accent='rose'] { 
+    --accent-color: #e11d48; 
+    --accent-hover: #be123c; 
+}
+[data-theme='dark'][data-accent='rose'] { 
+    --accent-color: #fb7185; 
+    --accent-hover: #f43f5e; 
+}
+
+body, main, aside, input, textarea, button, select {
+    font-family: var(--app-font, 'Inter', sans-serif);
+}
+
 main, aside {
     background-color: var(--bg-color);
 }
-.heading, .save-btn, .title, .content {
+.heading, .save-btn, h1, h2, h3, h4, p, span, label {
     color: var(--text-color);
 }
+
+.title, .content, input, textarea {
+    color: var(--user-text-color) !important;
+}
+
 .theme-switcher {
     background-color: var(--switcher-color);
 }
@@ -34,17 +106,55 @@ main, aside {
 .title::placeholder, .content::placeholder, .date, .start-msg {
     color: var(--placeholder-color);
 }
+
+.accent-bg {
+    background-color: var(--accent-color) !important;
+}
+.accent-bg:hover {
+    background-color: var(--accent-hover) !important;
+}
+.accent-text {
+    color: var(--accent-color) !important;
+}
+.accent-border {
+    border-color: var(--accent-color) !important;
+}
+.accent-focus:focus {
+    border-color: var(--accent-color) !important;
+}
+
 .card {
     background-color: var(--accent-color);
+    opacity: 0.85;
+    transition: opacity 0.2s ease-in-out;
+}
+.card:hover {
+    opacity: 0.95;
+}
+.card, .card * {
+    color: #ffffff !important;
 }
 
 button {
     cursor: pointer;
 }
 
-a.active {
-    background-color: #364153;
+a.nav-link {
+    color: var(--text-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+a.nav-link:hover {
+    background-color: var(--nav-hover-bg);
+    color: var(--accent-color);
+}
 
+a.nav-link.active {
+    background-color: var(--accent-color) !important;
+    color: #ffffff !important;
+}
 
+a.nav-link.active:hover {
+    background-color: var(--accent-hover) !important;
+    color: #ffffff !important;
+}
