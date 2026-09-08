@@ -6,6 +6,8 @@ const notesSlice = createSlice({
         items: [],
         searchQuery: '',
         sortBy: 'Newest',
+        filter: 'All',
+        layout: 'grid'
     },
     reducers: {
         addNote: {
@@ -83,9 +85,24 @@ const notesSlice = createSlice({
             } else if (type === 'Alphabetically') {
                 state.items.sort((a, b) => a.title.localeCompare(b.title, 'en'));
             }
+        },
+        filterNotes: (state, action) => {
+            state.filter = action.payload;
+        },
+        toggleLayout: (state) => {
+            state.layout = state.layout === 'grid' ? 'list' : 'grid';
         }
     }
 });
 
-export const { addNote, deleteNote, editNote, toggleFavorite, sortNotes, setSearchQuery } = notesSlice.actions;
+export const { 
+    addNote, 
+    deleteNote, 
+    editNote, 
+    toggleFavorite, 
+    sortNotes, 
+    filterNotes, 
+    setSearchQuery,
+    toggleLayout,
+    } = notesSlice.actions;
 export default notesSlice.reducer;

@@ -3,9 +3,13 @@ import { useSelector } from 'react-redux';
 import NoteCard from './NoteCard';
 
 export default function NoteList() {
-    const { items, searchQuery, sortBy } = useSelector(state => state.notes);
+    const { items, searchQuery, sortBy, filter, layout } = useSelector(state => state.notes);
 
     const filteredNotes = (items || []).filter(note => {
+        if (filter && filter !== 'All' && note.tag !== filter) {
+            return false;
+        }
+
         const query = (searchQuery || '').toLowerCase();
         const titleMatch = (note.title || '').toLowerCase().includes(query);
         const contentMatch = (note.content || '').toLowerCase().includes(query);
@@ -30,7 +34,11 @@ export default function NoteList() {
     return (
         <>
             {sortedNotes.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className={
+                    layout === 'grid' ?
+                    "grid grid-cols-2 lg:grid-cols-4 gap-6" : 
+                    "flex flex-col gap-4 w-full"
+                    }>
                     {sortedNotes.map((note) => (
                         <NoteCard 
                             key={note.id} 
@@ -40,6 +48,7 @@ export default function NoteList() {
                             date={note.date} 
                             tag={note.tag || 'Untagged'}
                             isFavorite={note.isFavorite}
+                            layout={layout}
                         />
                     ))}
                 </div>
