@@ -10,7 +10,7 @@ export default function AddButton() {
     
     return (
         <button onClick={handleNavigate} 
-        title='Add a note'
+        title='Add Note'
         className='absolute bottom-10 right-0 
         lg:right-0 w-13 h-13 md:w-15 md:h-15 rounded-lg bg-blue-500 
         text-2xl md:text-3xl text-white'>
